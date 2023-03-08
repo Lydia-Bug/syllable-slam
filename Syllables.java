@@ -86,6 +86,22 @@ public class Syllables{
                 }
                 
             }
+            if(Sub(word, i).equals("y")){
+                boolean surroundingConstants = false;
+                if(i != 0){
+                    if(vowels.contains(Sub(word, i-1))){
+                        surroundingConstants = true;
+                    }
+                }
+                if(i != word.length()-1){
+                    if(vowels.contains(Sub(word, i+1))){
+                        surroundingConstants = true;
+                    }
+                }
+                if(!surroundingConstants){
+                    vowelIndex.add(new int[]{i, i});
+                }
+            }
         }
         ArrayList<String> groups = new ArrayList<String>();
         for(int i = 0; i < vowelIndex.size(); i++){

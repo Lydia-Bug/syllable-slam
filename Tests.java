@@ -44,5 +44,10 @@ public class Tests {
         assertEquals(3,Syllables.SyllableChecker("archaeon"));  
     }
 
-
+    @Test  
+    public void wordsThatContainY(){  
+        assertEquals(2,Syllables.SyllableChecker("yellow"));  
+        assertEquals(2,Syllables.SyllableChecker("lolly"));  
+        assertEquals(1,Syllables.SyllableChecker("sky"));  
+    }
 }  
