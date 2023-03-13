@@ -36,6 +36,15 @@ public class Tests {
         assertEquals(1,Syllables.SyllableChecker("castes"));  
         assertEquals(1,Syllables.SyllableChecker("vapes"));  
         assertEquals(2,Syllables.SyllableChecker("cages"));
+        assertEquals(2,Syllables.SyllableChecker("tackles"));
+    }
+
+    @Test  
+    public void wordsThatEndWithLE(){  
+        assertEquals(1,Syllables.SyllableChecker("gale"));  
+        assertEquals(1,Syllables.SyllableChecker("sale"));  
+        assertEquals(2,Syllables.SyllableChecker("tackle"));
+        assertEquals(2,Syllables.SyllableChecker("apple"));
     }
 
     @Test  
