@@ -2,6 +2,7 @@ public class SyllableCounter {
     public static void main(String[] args){
         /**
          * generate arraylist of VowelSet
+         * NOTE FOR CSV REGEX: need to escape backslash; not sure how well this will work yet
          * 
          * while input:
          *      split line into syllables based on vowel groups
@@ -14,5 +15,8 @@ public class SyllableCounter {
          *                  add DEFAULT_SYLLABLES (2) if vowel combo not found
          *          output count to stdout
          */
+
+        VowelSet v = new VowelSet("aai 1 2 ^\\s+aaing,aai[xc]");
+        System.out.println(v.toString());
     }
 }
