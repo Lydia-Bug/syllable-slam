@@ -52,7 +52,7 @@ public class Syllables{
         if(groups.size() > 1){
             secondLastGroup = groups.get(groups.size()-2);
             secondlastWordGroup = secondLastGroup.split("(?!^)");
-            if (lastWordGroup[lastWordGroup.length-1].equals("e")){
+            if (lastWordGroup[lastWordGroup.length-1].equals("e") && !vowels.contains(lastWordGroup[lastWordGroup.length-2])){
                if(consonants.contains(secondlastWordGroup[secondlastWordGroup.length-2]) && lastWordGroup[lastWordGroup.length-2].equals("l")){
                }else{
                    syllables --;
@@ -64,7 +64,7 @@ public class Syllables{
                    syllables --;
                }
             }
-        }else if (lastWordGroup[lastWordGroup.length-1].equals("e")){
+        }else if (lastWordGroup[lastWordGroup.length-1].equals("e") && !vowels.contains(lastWordGroup[lastWordGroup.length-2])){
             if(syllables >1){
                 syllables --;
             }
