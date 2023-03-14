@@ -9,7 +9,7 @@ public class WordListTest {
     static ArrayList<ArrayList<String>> incorrectWords = new ArrayList<ArrayList<String>>();
 
     public static void main(String[] args){
-        readWordFile("testWords.txt");
+        readWordFile("wordsAndSyllables.txt");
         System.out.println("Words checked: " + wordsChecked);
         System.out.println("Words correct: " + correctWords);
         double percentage = 100*(correctWords+0.0)/wordsChecked ;
@@ -26,7 +26,12 @@ public class WordListTest {
           Scanner myReader = new Scanner(myObj);
           while (myReader.hasNextLine()) {
             String[] line = myReader.nextLine().split(" ");
-            checkWord(line[0], Integer.parseInt(line[1]));
+            if(line.length > 2){
+                for(int i = 1; i < line.length-1; i++){
+                    line[0] = line[0] + line[i];
+                }
+            }
+            checkWord(line[0], Integer.parseInt(line[line.length-1]));
           }
           myReader.close();
         } catch (FileNotFoundException e) {
