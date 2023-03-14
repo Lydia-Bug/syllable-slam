@@ -48,30 +48,36 @@ public class Syllables{
             }
             
         }
-
+        //Checks if there is more then on vowel grouping
         if(groups.size() > 1){
+            //If there is more then one vowel group, it stores the second last group of words and splits them into an array of characters
             secondLastGroup = groups.get(groups.size()-2);
             secondlastWordGroup = secondLastGroup.split("(?!^)");
+            //For words with more then one vowel group
+            //Checks if the last letter in the last vowel group is "e" as trailing "e" are usually ignored as a syllable if the word beside it is a consonant
             if (lastWordGroup[lastWordGroup.length-1].equals("e") && !vowels.contains(lastWordGroup[lastWordGroup.length-2])){
+                //Checks for if the second last letter is "l" and if the previous word before that is a consonant as in most cases words ending with "le" don't count that combination as a 
+                //syllable unless the word prior is a consonant (thus it checks the last letter of the word group before)
                if(consonants.contains(secondlastWordGroup[secondlastWordGroup.length-2]) && lastWordGroup[lastWordGroup.length-2].equals("l")){
                }else{
                    syllables --;
                }
+            //Checks if the last two letters in the last word group is "es" as those usually do not count as a syllable combination
            }else if (lastWordGroup[lastWordGroup.length-2].equals("e") &&  lastWordGroup[lastWordGroup.length-1].equals("s")){
-               if(!esException.contains(lastWordGroup[lastWordGroup.length-3])){
-                   syllables --;   
-               } else if(!consonants.contains(secondlastWordGroup[secondlastWordGroup.length-1]) && lastWordGroup[lastWordGroup.length-3].equals("l")){
+               //If the letter preceding "es" is not in the esException Array, it removes the "es" vowel group as a syllable
+                if(!esException.contains(lastWordGroup[lastWordGroup.length-3])){
+                   syllables --;  
+                //   If the letter preceding "es" is "l", it checks the prior word group if the letter preceding "l" is not a consonant, if it returns true, it removes the vowel group from the syllable count
+                 }else if(!consonants.contains(secondlastWordGroup[secondlastWordGroup.length-1]) && lastWordGroup[lastWordGroup.length-3].equals("l")){
                    syllables --;
                }
             }
-        }else if (lastWordGroup[lastWordGroup.length-1].equals("e") && !vowels.contains(lastWordGroup[lastWordGroup.length-2])){
-            if(syllables >1){
+        /* }else if (lastWordGroup[lastWordGroup.length-1].equals("e") && !vowels.contains(lastWordGroup[lastWordGroup.length-2])){
                 syllables --;
-            }
-             }else if (lastWordGroup[lastWordGroup.length-2].equals("e") &&  lastWordGroup[lastWordGroup.length-1].equals("s")){
+             }else if (lastWordGroup[lastWordGroup.length-2].equals("e") &&  lastWordGroup[lastWordGroup.length-1].equals("s") &&  !vowels.contains(lastWordGroup[lastWordGroup.length-2])){
                 if(!esException.contains(lastWordGroup[lastWordGroup.length-3])){
                     syllables --;   
-                 }
+                 }*/
         }
     
 
