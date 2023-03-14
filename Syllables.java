@@ -22,15 +22,19 @@ public class Syllables{
         ArrayList<String> vowls = new ArrayList<String>(Arrays.asList("a", "i", "o", "u"));
         ArrayList<String> consonants = new ArrayList<String>(Arrays.asList("b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"));
         ArrayList<String> blends = new ArrayList<String>(Arrays.asList("bl", "br", "cl", "cr", "dr", "fr", "tr", "fl", "gl", "gr", "pl", "pr", "sl", "sm", "sp", "st"));
-        ArrayList<String> esException = new ArrayList<String>(Arrays.asList("c","x","g"));
+        ArrayList<String> esException = new ArrayList<String>(Arrays.asList("c","x","g","l"));
 
         //a group is a group of vowels and surrounding constantants; eg banana [ban, nan, na]
         //the base rule is that every group is one syllable
         ArrayList<String> groups = splitWordIntoGroups(word); 
         //Saves last word group to variable
         String lastGroup = groups.get(groups.size()-1);
+        String secondLastGroup;
         //Splits last word group into individual character strings and puts them into lastWordGroup
         String[] lastWordGroup = lastGroup.split("(?!^)");
+        String[] secondlastWordGroup;
+        
+        
         
 
         for(int i = 0; i < groups.size(); i++){
@@ -45,15 +49,31 @@ public class Syllables{
             
         }
 
-    
-        if (lastWordGroup[lastWordGroup.length-1].equals("e")){
-            syllables --;
-        }else if (lastWordGroup[lastWordGroup.length-2].equals("e") &&  lastWordGroup[lastWordGroup.length-1].equals("s")){
-            if(!lastWordGroup[lastWordGroup.length-3].equals("g")&&!lastWordGroup[lastWordGroup.length-3].equals("x")&&!lastWordGroup[lastWordGroup.length-3].equals("c")){
-                syllables --;   
+        if(groups.size() > 1){
+            secondLastGroup = groups.get(groups.size()-2);
+            secondlastWordGroup = secondLastGroup.split("(?!^)");
+            if (lastWordGroup[lastWordGroup.length-1].equals("e")){
+               if(consonants.contains(secondlastWordGroup[secondlastWordGroup.length-2]) && lastWordGroup[lastWordGroup.length-2].equals("l")){
+               }else{
+                   syllables --;
+               }
+           }else if (lastWordGroup[lastWordGroup.length-2].equals("e") &&  lastWordGroup[lastWordGroup.length-1].equals("s")){
+               if(!esException.contains(lastWordGroup[lastWordGroup.length-3])){
+                   syllables --;   
+               } else if(!consonants.contains(secondlastWordGroup[secondlastWordGroup.length-1]) && lastWordGroup[lastWordGroup.length-3].equals("l")){
+                   syllables --;
+               }
             }
+        }else if (lastWordGroup[lastWordGroup.length-1].equals("e")){
+            if(syllables >1){
+                syllables --;
+            }
+             }else if (lastWordGroup[lastWordGroup.length-2].equals("e") &&  lastWordGroup[lastWordGroup.length-1].equals("s")){
+                if(!esException.contains(lastWordGroup[lastWordGroup.length-3])){
+                    syllables --;   
+                 }
         }
-        
+    
 
     
         
