@@ -9,14 +9,14 @@ public class SyllableCounter {
          *      have some kind of handling for y
          *      extract vowels
          *      find vowels in vowelset arraylist
-         *          foreach vowel group:
+         *          foreach vowel group: misinterpret
          *                  [special if statement for handling final syllable exceptions]
          *                  add to count based on rule matching
          *                  add DEFAULT_SYLLABLES (2) if vowel combo not found
          *          output count to stdout
          */
 
-        VowelSet v = new VowelSet("aai 1 2 ^\\s+aaing,aai[xc]");
+        VowelSet v = new VowelSet("aai 1 2 ");
         System.out.println(v.toString());
     }
 }

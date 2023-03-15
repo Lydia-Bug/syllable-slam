@@ -9,7 +9,7 @@ public class VowelSet{
     private static final String IN_FORMAT = "[A-Za-z]+\\s\\d+\\s\\d+\\s[^\\s]*";
     private int defaultCount, exceptionCount;
     private String chars;
-    private ArrayList<String> exceptPatterns = new ArrayList<String>();
+    private ArrayList<String> exceptPatterns = new ArrayList<String>(); //not sure if this will cause errors if empty
     
     /**
      * Creates a syllable object from a line of input.
@@ -30,10 +30,15 @@ public class VowelSet{
             defaultCount = Integer.parseInt(input[1]);
             exceptionCount = Integer.parseInt(input[2]);
 
-            
-            for (String reg : input[3].split(",")) { //TODO - try this with non-except
-                exceptPatterns.add(reg);
+            try {
+                for (String reg : input[3].split(",")) { //TODO - try this with non-except
+                    exceptPatterns.add(reg);
+                }
+            } catch (ArrayIndexOutOfBoundsException e){
+                System.err.println("[line] did not have a regex list");
+
             }
+            
         }
         /*
          * Scanner to handle csv input; first three are chars>defaultcount>exception count
