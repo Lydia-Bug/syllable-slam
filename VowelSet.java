@@ -6,7 +6,7 @@ public class VowelSet{
     /* Description on this regex here. Sorry in advance :(
      * alphabetical -> whitespace -> digit -> whitespace -> digit -> whitespace -> regex string (non-whitespace)
      */
-    private static final String IN_FORMAT = "[A-Za-z]+\\s\\d+\\s\\d+\\s[^\\s]*";
+    private static final String IN_FORMAT = "[a-z]+ +\\d+ +\\d+ *[^\\s]*";
     private int defaultCount, exceptionCount;
     private String chars;
     private ArrayList<String> exceptPatterns = new ArrayList<String>(); //not sure if this will cause errors if empty
@@ -22,10 +22,11 @@ public class VowelSet{
      */
     public VowelSet(String inputString){
         if (!isValidInput(inputString)){
-            System.err.println("Not a valid input! Too few arguments...");
+            System.err.println(inputString + "Not a valid input! Too few arguments...");
 
         } else {
-            String[] input = inputString.split(" ");
+            String[] input = inputString.split(" +");
+            
             chars = input[0];
             defaultCount = Integer.parseInt(input[1]);
             exceptionCount = Integer.parseInt(input[2]);
@@ -35,21 +36,34 @@ public class VowelSet{
                     exceptPatterns.add(reg);
                 }
             } catch (ArrayIndexOutOfBoundsException e){
-                System.err.println("[line] did not have a regex list");
+                //System.err.println("[line] did not have a regex list");
 
             }
             
         }
-        /*
-         * Scanner to handle csv input; first three are chars>defaultcount>exception count
-         * regex exceptions should have comma delim, add periodically into exceptPatterns
-         *can make functions that do this for you 
-         */
         
         /*
          * Have handling for inputs with no reg-exceptions
          */ 
         
+    }
+
+    /**
+     * Method to compare a given cons-vowel-cons combo with the regex patterns
+     * found in this object.
+     * 
+     * @param cvcGroup String of chars to be checked against exceptPatterns
+     * 
+     * @return exceptionCount is cvcGroup matches any pattern inside
+     *          exceptPatterns; defaultCount if no match is found.
+     */
+    public int compareSyllable(String cvcGroup){
+        for(String pattern : exceptPatterns){
+            if (cvcGroup.matches(pattern)){
+                return exceptionCount;
+            }
+        }
+        return defaultCount;
     }
 
     /**
@@ -65,11 +79,20 @@ public class VowelSet{
     }
 
     /**
-     * toString method for VowelSet. Mostly for testing purposes.
+     * toString method for VowelSet.
      * 
-     * @return String representation of this object
+     * @return chars
      */
     public String toString(){
+        return chars;
+    }
+
+    /**
+     * Method that returns information about this object.
+     * 
+     * @return String containing information on this object
+     */
+    public String debugString(){
         return("Combo: " + chars + "\tDefault: " + defaultCount + "\tExc: " 
                 + exceptionCount + "\tNum Exceptions: " + exceptPatterns.size());
     }

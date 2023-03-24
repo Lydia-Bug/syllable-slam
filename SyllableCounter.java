@@ -26,7 +26,20 @@ public class SyllableCounter {
          */
 
         
-        ArrayList<VowelSet> vowelSets = generateArrayListOfVowelSets("test.txt");
+        ArrayList<VowelSet> vowelSets = generateVowelSets("data/vowelData.csv");
+        File f = new File("data/wordList.txt");
+        
+        Scanner sc = new Scanner(f);
+        while(sc.hasNextLine()){
+            String line = sc.nextLine();
+            System.err.println(line + ":");
+            String[] word = Word.getWordGroups(line);
+            for(String group : word){
+                System.out.print(group + "\t");
+            }
+            System.out.println();
+        }
+        sc.close();
         
         
 
@@ -40,7 +53,7 @@ public class SyllableCounter {
      * 
      * @return ArrayList of vowel sets
      */
-    public static ArrayList<VowelSet> generateArrayListOfVowelSets(String file){
+    public static ArrayList<VowelSet> generateVowelSets(String file){
         ArrayList<VowelSet> vowelSets = new ArrayList<VowelSet>();
         BufferedReader reader;
 
@@ -59,79 +72,4 @@ public class SyllableCounter {
         return vowelSets;
     }
 
-    /**
-     * Splits the word into groups, each group has a group of consecutive vowels and all surrounding constanants
-     * 
-     * @param word Word to split up
-     * 
-     * @return ArrayList of word groups
-     */
-    public static ArrayList<String> splitWordIntoGroups(String word){
-        ArrayList<int[]> vowelIndex = getIndexesOfVowelGroups(word);
-
-        ArrayList<String> groups = new ArrayList<String>();
-        for(int i = 0; i < vowelIndex.size(); i++){
-            if(vowelIndex.size() == 1){
-                groups.add(word);
-            }else if(i == 0){
-                groups.add(word.substring(0, vowelIndex.get(i+1)[0]));
-            }else if(i == vowelIndex.size()-1){
-                groups.add(word.substring(vowelIndex.get(i-1)[1]+1));
-            }else{
-                groups.add(word.substring(vowelIndex.get(i-1)[0]+1, vowelIndex.get(i+1)[1]));
-            }
-            
-        }
-        return groups;
-    }
-
-    /**
-     * Finds the indexes of consecutive vowel groups in a word
-     * 
-     * @param word Word to get indexes of vowel groups
-     * 
-     * @return ArrayList of int array of vowel group indexes
-     */
-    public static ArrayList<int[]> getIndexesOfVowelGroups(String word){
-        ArrayList<String> vowels = new ArrayList<String>(Arrays.asList("a", "e", "i", "o", "u"));
-
-        ArrayList<int[]> vowelIndex = new ArrayList<int[]>();
-        for(int i = 0; i < word.length(); i++){
-            if(vowels.contains(word.substring(i, i))){//current letter is vowel
-                int j = i;
-                while(vowels.contains(word.substring(j, j)) && j != word.length()-1){
-                    j++;
-                }
-                if(j == word.length()-1){//if vowel group goes to end of word
-                    if(vowels.contains(word.substring(j, j))){
-                        vowelIndex.add(new int[]{i, j});
-                    }else{
-                        vowelIndex.add(new int[]{i, j-1}); 
-                    }
-                    break;
-                }else{
-                    vowelIndex.add(new int[]{i, j-1});
-                    i = j-1;
-                }
-            }
-            //if y is surrounded by constants then its counted as a vowel
-            if(word.substring(i, i).equals("y")){
-                boolean surroundingConstants = false;
-                if(i != 0){
-                    if(vowels.contains(word.substring(i-1, i-1))){
-                        surroundingConstants = true;
-                    }
-                }
-                if(i != word.length()-1){
-                    if(vowels.contains(word.substring(i+1, i+1))){
-                        surroundingConstants = true;
-                    }
-                }
-                if(!surroundingConstants){
-                    vowelIndex.add(new int[]{i, i});
-                }
-            }
-        }
-        return vowelIndex;
-    }
 }
