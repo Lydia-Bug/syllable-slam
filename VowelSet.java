@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Arrays;
 /**Syllable class object */
 
 public class VowelSet{
@@ -64,6 +65,13 @@ public class VowelSet{
             }
         }
         return defaultCount;
+    }
+
+    public boolean isVowelSet(String vowelGroup){
+        if(vowelGroup.equals(chars)){
+            return true;
+        }
+        return false;
     }
 
     /**

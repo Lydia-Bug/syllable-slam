@@ -27,8 +27,14 @@ public class SyllableCounter {
 
         
         ArrayList<VowelSet> vowelSets = generateVowelSets("data/vowelData.csv");
-        File f = new File("data/wordList.txt");
-        
+        //File f = new File("data/wordList.txt");
+
+        Scanner sc = new Scanner(System.in);
+        while(sc.hasNext()){
+            System.out.println(calculateSyllables(sc.nextLine(), vowelSets));
+        }
+        sc.close();
+        /* 
         Scanner sc = new Scanner(f);
         while(sc.hasNextLine()){
             String line = sc.nextLine();
@@ -40,10 +46,42 @@ public class SyllableCounter {
             System.out.println();
         }
         sc.close();
-        
-        
+        */
+    
+    }
 
+    public static int calculateSyllables(String input, ArrayList<VowelSet> vowelSets){
+        ArrayList<String> word = Word.splitWordIntoGroups(input.toLowerCase());
+        int syllables = 0;
+        for(int i = 0; i < word.size(); i++){
+            String vowelGroup = getVowelGroup(word.get(i));
+            boolean isVowelSet = false;
+            for(VowelSet vs : vowelSets){
+                if(vs.isVowelSet(vowelGroup)){
+                    syllables += vs.compareSyllable(word.get(i));
+                    isVowelSet = true;
+                }
+            }
+            if(i == word.size()-1 && word.get(i).matches("[a-z]*e") && syllables >= 1){
+                // trailing e so no syllable
+                isVowelSet = true;
+            }
+            if(!isVowelSet){
+                syllables++; // if not in our vowel sets its presumed to be one syllable
+            }
+        }
+        return syllables;
+    }
 
+    public static String getVowelGroup(String cvcGroup){
+        ArrayList<String> vowels = new ArrayList<String>(Arrays.asList("a", "e", "o", "i", "u"));
+        String vowelGroup = "";
+            for(int i = 0; i < cvcGroup.length(); i++){
+                if(vowels.contains(cvcGroup.substring(i, i+1))){
+                    vowelGroup += cvcGroup.substring(i, i+1);
+                }
+            }
+        return vowelGroup;
     }
 
     /**

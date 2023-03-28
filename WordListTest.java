@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import old.Syllables;
-
 import java.util.ArrayList;
 
 public class WordListTest {
@@ -39,7 +37,8 @@ public class WordListTest {
     }
 
     public static void checkWord(String word, int syllables){
-        int calculatedSyllables = Syllables.SyllableChecker(word);
+        ArrayList<VowelSet> vowelSets = SyllableCounter.generateVowelSets("data/vowelData.csv");
+        int calculatedSyllables = SyllableCounter.calculateSyllables(word, vowelSets);
         if(calculatedSyllables == syllables){
             correctWords++;
         }else{
