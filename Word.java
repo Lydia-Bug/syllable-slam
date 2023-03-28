@@ -116,7 +116,7 @@ public class Word {
             }else if(i == vowelIndex.size()-1){
                 groups.add(word.substring(vowelIndex.get(i-1)[1]+1));
             }else{
-                groups.add(word.substring(vowelIndex.get(i-1)[0]+1, vowelIndex.get(i+1)[1]));
+                groups.add(word.substring(vowelIndex.get(i-1)[1]+1, vowelIndex.get(i+1)[0]));
             }
             
         }
