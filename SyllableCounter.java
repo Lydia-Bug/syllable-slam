@@ -38,7 +38,11 @@ public class SyllableCounter {
         for(int i = 0; i < word.size(); i++){
             syllables += sylCount(word.get(i));
         }
-        return syllables;
+
+        if (syllables >= 1){
+            return syllables;
+        }
+        return 1; //default if count is 0
     }
 
     /**
