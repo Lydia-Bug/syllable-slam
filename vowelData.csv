@@ -58,4 +58,4 @@ iu      2   2
 oa      1   1
 oe      1   2   [a-z]*poe[a-z]*
 oi      1   2   [a-z]*[zt]oic,oin[cgvj][a-z]*
-e       1   0   [a-z]*e,[a-z]*[^xcg]es
+e       1   0   [^lb]*e,[a-z]*[^xcg]es

@@ -38,6 +38,9 @@ public class SyllableCounter {
         for(int i = 0; i < word.size(); i++){
             syllables += sylCount(word.get(i));
         }
+        if(syllables == 0){
+            return 1; // words like the or me with only a trailing e, will calculate as 0 syllables
+        }
         return syllables;
     }
 
