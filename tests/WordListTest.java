@@ -1,6 +1,10 @@
+package tests;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+
+import main.SyllableCounter;
+
 import java.util.ArrayList;
 
 public class WordListTest {
@@ -13,7 +17,7 @@ public class WordListTest {
     static ArrayList<String> ambiguousIncorrectWords = new ArrayList<String>();
 
     public static void main(String[] args){
-        readWordFile("wordsAndSyllables.txt");
+        readWordFile("tests/wordsAndSyllables.txt");
 
         System.out.println("[word]-[calculated syllables] [actual amount of syllables]\n");
         for(int i = 1; i < incorrectWords.size(); i++){

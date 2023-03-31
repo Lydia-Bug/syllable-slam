@@ -1,3 +1,4 @@
+package main;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,7 +13,7 @@ import java.util.Scanner;
  */
 public class SyllableCounter {
 
-    static ArrayList<VowelSet> vowelSets = generateVowelSets("vowelData.csv");
+    static ArrayList<VowelSet> vowelSets = generateVowelSets("main/vowelData.csv");
 
     public static void main(String[] args) throws FileNotFoundException{
 
