@@ -14,10 +14,6 @@ Inputs should be single words, separated by a newline character.
 
 Alternatively, you can run SyllableCounter without piping stdin. In this case, SyllableCounter will read lines sequentially from stdin as they are entered into the console, outputting syllable counts to stdout.
 
-## About
-
-Some (general) info on how the program works as a whole, going over each file >> vowelData.csv is the salient file here.
-
 ## Solving the Problem
 
 Report-style section on how we approached the issue; ie rules-based; using regex and CSV for efficiency. <-- implement referencing
@@ -34,7 +30,7 @@ Advantages and drawbacks of this approach.
 
  ### Defining and Detecting Syllables
  
-[paragraph on how we split by vowel groups --> CVC; initial considerations. Looking through scrabble/dict websites keyed in that the consonants surrounding each vowel group would be key to exceptions.]
+[paragraph on how we split by vowel groups --> CVC; [define what a cvc group is] initial considerations. Looking through scrabble/dict websites keyed in that the consonants surrounding each vowel group would be key to exceptions.]
  - include links to freedictionary
  - include a screenshot of the csv file, in the following section:
 
@@ -45,9 +41,14 @@ Different accents were a confounding factor for this problem. Where syllable cou
  ### The vowelData CSV
 [include a screenshot]
 
- Rather than using a sequence of if-else statements (which would be messy and hard to read), we opted to use a sequence of regex strings to check the amount of syllables in a particular vowel group.
+ Rather than using a sequence of if-else statements (which would be messy and hard to read), we opted to use a sequence of regex strings to check the amount of syllables in a particular vowel group.  
+ The result was an ArrayList of `VowelSet` objects, which could be iteratively checked through to compare a given CVC group to each vowel pattern[^1].  
+
+ Using this, we can count syllables based on the pattern of vowels and their surrounding syllables; if a given CVC group matches any of the regex patterns in the fourth column of the 
 
  If you are interested in reading the csv but lack knowledge of regex strings, we recommend you refer to [this regex cheatsheet](https://www.rexegg.com/regex-quickstart.html) to help you decode what exactly each string is checking.
+
+ [^1]: An important note here for those who would edit this file: vowel groups must be added in order of decreasing group length (i.e. 4-vowel groups should be placed higher than 3-vowel groups, etc.)
 
  ### Advantages of this Approach
  - speed (vs ML approach)
