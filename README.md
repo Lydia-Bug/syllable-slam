@@ -58,8 +58,25 @@ Based on our current implementation, it is difficult to account for compound wor
  Regardless of how comprehensive a given ruleset may be, there will always be edge-cases that break these rules, and it is impossible to account for all of these without either changing the approach or hard-coding counts. 
 
  ## Testing & Benchmarking
---- 
- [information about testing/datasets goes here]  
- (since we used a rule-based approach, benchmarking isn't super important. So long as we state that it's fast due to the approach we took)
+---
+### Testing
 
- ## Footnotes
+The testing program can be compiled and run by running the following commands in the project directory:
+
+```
+javac tests/WordListTest.java
+java tests/WordListTest
+```
+The test checks our code, against a set of test data. And says how many words were checked and correct, how many ambiguous words (words that could be pronounced with a different amount of syllables) were checked and correct. And the overall percentage that were correct. It also prints out all the incorrect words. This allowed us to check that our code was reasonably accurate. And check what type of words we were calculating wrong.
+
+I used a set of 10,000 words that I found from [Sherwood School](http://sherwoodschool.ru/en/vocabulary/proficiency/). And I got the actual amount of syllables from Merriam-Webster using the [Merriam-Webster dictionary API](https://dictionaryapi.com/). This allowed me to write a script to automatically get the syllable amounts rather than manually creating my own test data.
+
+Merriam-Webster doesn't say how many syllables each word has, but it does say how to pronounce a word using hyphens as breaks between syllables. So using that I can find out how many syllables are in a word. Merriam-Webster also uses brackets to indicate that what's inside the brackets is sometimes not said, depending on how you pronounce the word. So, the amount of syllables a word has is sometimes ambiguous. This means in my data set some words have two different amount of syllables, and the test will check if either one of them matches our calculated value.
+
+There were some issues with the Merriam-Webster API. Not all words have their own definition like 'cleaning' which is just a different tense of 'clean', so it doesn't say how to pronounce the word. For words like this, they just didn’t get added to the dataset. I wasn't able to get the syllables of all 10,000 of my original words my final test data ended up having 9185 words.
+
+### Benchmarking
+
+As the program is rules-based and doesn't have any noticeable problems (even with speed), benchmarking is not really necessary as it may be with more processing-intensive implementations.
+
+##Footnotes
