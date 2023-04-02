@@ -79,4 +79,4 @@ There were some issues with the Merriam-Webster API. Not all words have their ow
 
 As the program is rules-based and doesn't have any noticeable problems (even with speed), benchmarking is not really necessary as it may be with more processing-intensive implementations.
 
-##Footnotes
+## Footnotes
